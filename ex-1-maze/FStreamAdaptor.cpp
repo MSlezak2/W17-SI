@@ -3,7 +3,7 @@
 
 FStreamAdaptor::FStreamAdaptor(std::string filePath) {
 	currentPosition = 0;
-	fileStream.open(filePath, std::ios::in /*| std::ios::app*/ | std::ios::out);
+	fileStream.open(filePath, std::ios::in | std::ios::app | std::ios::out);
 	if (fileStream.fail()) {
 		fileStream.clear();
 		// TODO: Is that a good idea to throw an exception here?
@@ -30,12 +30,12 @@ std::string FStreamAdaptor::read() {
 
 bool FStreamAdaptor::write(std::string line) {
 	bool success{ false };
-		
+	
 	fileStream.seekp(0,std::fstream::end);
 	fileStream << line << "\n";
 	success = !fileStream.fail();
 	fileStream.clear();
-	fileStream.seekg(currentPosition);
+	fileStream.seekg(currentPosition); //for write operations not to disrupt read operations
 
 	return success;
 }
