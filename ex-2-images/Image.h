@@ -5,12 +5,15 @@ class Image {
 public:
 
 	Image() = delete;
-	Image(int width, int height) : width{ width }, height{ height } {};
+	Image(int _width, int _height);
 	struct color {
 		float r, g, b, a;
+		color() : r{ 0 }, g{ 0 }, b{ 0 }, a{ 0 } {};
 	};
 	color& operator()(size_t x, size_t y);
 	color operator()(size_t x, size_t y) const;
+	int getWidth() const { return width; };
+	int getHeight() const { return height; };
 
 private:
 	int width, height;

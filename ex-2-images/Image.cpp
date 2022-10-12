@@ -1,6 +1,12 @@
 #include "Image.h"
 #include <stdexcept>
 
+Image::Image(int _width, int _height) {
+    width = _width;
+    height = _height;
+    pixels = std::vector<color>(width * height, color());
+}
+
 Image::color& Image::operator()(size_t x, size_t y) {
     //TODO: Is that the right way to return reference?
     if (0 > x || x > width || 0 > y || y > height) {
