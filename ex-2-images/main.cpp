@@ -8,7 +8,7 @@ int main() {
 	std::unique_ptr<ImageDataProviderInterface> imageDataProvider = idpFactory.createDataProvider(".ppm");
 
 	Image img(10, 10);
-	imageDataProvider.get()->saveImage("the_test1.ppm",img);
+	imageDataProvider.get()->saveImage("the_test2.ppm",img);
 
 	return 0;
 }

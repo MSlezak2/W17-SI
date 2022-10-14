@@ -1,5 +1,5 @@
 #include "PPMImageDataProvider.h"
-#include <fstream>
+#include <bitset>
 
 Image PPMImageDataProvider::loadImage(const std::string& path) const {
     //std::fstream fileStream;
@@ -16,8 +16,7 @@ bool PPMImageDataProvider::saveImage(const std::string& path, const Image& img) 
     //returns false if operation of saving image fails
     bool success{ false };
 
-    std::fstream fileStream;
-    fileStream.open(path, std::fstream::out | std::fstream::trunc);
+    fileStream.open(path, std::fstream::out | std::fstream::trunc | std::fstream::binary);
     if (fileStream.is_open()) {
         // write metadata
         fileStream << "P6" << "\n"; //magic number
@@ -25,15 +24,15 @@ bool PPMImageDataProvider::saveImage(const std::string& path, const Image& img) 
         fileStream << img.getHeight() << "\n"; //image height
         fileStream << MAX_COLOR_VALUE << "\n"; //maximum color value
         //write the actual image
-        int r, g, b;
+        char r, g, b;
         for (int y = 0; y < img.getHeight(); y++) {
             for (int x = 0; x < img.getWidth(); x++) {
                 r = img(x, y).r;
                 g = img(x, y).g;
                 b = img(x, y).b;
-                fileStream << r;
-                fileStream << g; //TODO: transform hexadecimal to binary (1-byte number)
-                fileStream << b;
+                fileStream << r;//std::bitset<8>(r); // transform hexadecimal to binary (1-byte number)
+                fileStream << g;//std::bitset<8>(g);
+                fileStream << b;//std::bitset<8>(b);
                 fileStream << " ";
             }
             fileStream << "\n";
