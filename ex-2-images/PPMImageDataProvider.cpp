@@ -38,11 +38,11 @@ void PPMImageDataProvider::parseAnActualImage(Image& img, int maxColorValue) con
     for (int y = 0; y < img.getHeight(); y++) {
         for (int x = 0; x < img.getWidth(); x++) {
             fileStream >> r;
-            img(y, x).r = mapTo0To1Range(r, maxColorValue);
+            img(x, y).r = mapTo0To1Range(r, maxColorValue);
             fileStream >> g;
-            img(y, x).g = mapTo0To1Range(g, maxColorValue);
+            img(x, y).g = mapTo0To1Range(g, maxColorValue);
             fileStream >> b;
-            img(y, x).b = mapTo0To1Range(b, maxColorValue);
+            img(x, y).b = mapTo0To1Range(b, maxColorValue);
             if (fileStream.fail()) {
                 throw CorruptedFileException();
             }
@@ -72,7 +72,7 @@ void PPMImageDataProvider::saveMetadata(const Image& img) const
         fileStream << "P3" << "\n"; //magic number
         fileStream << img.getWidth() << "\n"; //image width
         fileStream << img.getHeight() << "\n"; //image height
-        fileStream << MAX_COLOR_VALUE << "\n"; //maximum color value
+        fileStream << Image::getMaxColorValue() << "\n"; //maximum color value
     }
 }
 
@@ -87,16 +87,5 @@ void PPMImageDataProvider::saveAnActualImage(const Image& img) const
         }
         fileStream << "\n";
     }
-}
-
-int PPMImageDataProvider::mapTo0ToMaxValueRange(float value) const {
-    return floor(value * MAX_COLOR_VALUE);
-}
-
-float PPMImageDataProvider::mapTo0To1Range(int value, int maxColorValue) const {
-    if (value < 0 || maxColorValue < value) {
-        throw IncorrectColorValueException(maxColorValue);
-    }
-    return value / maxColorValue;
 }
 
