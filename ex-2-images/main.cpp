@@ -9,9 +9,12 @@ int main() {
 
 	Image img1(10, 10);
 	for (int i = 0; i < 10; i++) {
-		img1(i, i).r = 0.4;
-		img1(i, i).g = 0.4;
-		img1(i, i).b = 0.4;
+		//for (int j = 0; j < 10; j++) {
+			img1(i, i).r = 1;
+			img1(i, i).g = 0;
+			img1(i, i).b = 0;
+			img1(i, i).a = 1;
+		//}
 	}
 	//imageDataProvider.get()->saveImage("the_test2.ppm",img);
 

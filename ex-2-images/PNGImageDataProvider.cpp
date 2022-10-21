@@ -34,11 +34,11 @@ bool PNGImageDataProvider::saveImage(const std::string& path, const Image& img) 
     int i = 0;
     for (int y = 0; y < img.getHeight(); y++) {
         for (int x = 0; x < img.getWidth(); x++) {
-            imageData[i] = mapTo0ToMaxValueRange(0);
-            imageData[i+1] = mapTo0ToMaxValueRange(0);
-            imageData[i+2] = mapTo0ToMaxValueRange(1);
-            imageData[i+3] = mapTo0ToMaxValueRange(0);
-            i += 4;
+            imageData[i] = mapTo0ToMaxValueRange(img(x,y).r);
+            imageData[i+1] = mapTo0ToMaxValueRange(img(x, y).g);
+            imageData[i+2] = mapTo0ToMaxValueRange(img(x, y).b);
+            imageData[i + 3] = mapTo0ToMaxValueRange(img(x, y).a);
+            i += noComponentsPerPixel;
         }
     }
 
