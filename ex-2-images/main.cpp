@@ -11,19 +11,19 @@ int main() {
 	Image img1(10, 10);
 	for (int i = 0; i < 10; i++) {
 		for (int j = 0; j < 10; j++) {
-			img1(i, i).r = 1;
-			img1(i, i).g = 0;
-			img1(i, i).b = 0;
-			img1(i, i).a = 1;
+			img1(i, j).r = 1;
+			img1(i, j).g = 0.5;
+			img1(i, j).b = 0.5;
+			img1(i, j).a = 1;
 		}
 	}
 	Image img2(10, 10);
 	for (int i = 0; i < 10; i++) {
 		for (int j = 0; j < 10; j++) {
-			img2(i, i).r = 0;
-			img2(i, i).g = 1;
-			img2(i, i).b = 0;
-			img2(i, i).a = 1;
+			img2(i, j).r = 0.5;
+			img2(i, j).g = 1;
+			img2(i, j).b = 0.5;
+			img2(i, j).a = 1;
 		}
 	}
 
@@ -37,7 +37,8 @@ int main() {
 		c.b = a.b * b.b;
 		return c;
 	};
-	Image img3 = imageBlender.blendImages(img1, img2, 3, blendFunction);
+
+	Image img3 = imageBlender.blendImages(img1, img2, 2, blendFunction);
 
 	//imageDataProvider.get()->saveImage("the_test2.ppm",img);
 

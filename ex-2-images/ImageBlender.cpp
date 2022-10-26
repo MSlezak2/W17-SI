@@ -4,36 +4,31 @@
 
 Image ImageBlender::blendImages(const Image& imageA, const Image& imageB, int noThreads, std::function<Image::color(const Image::color, const Image::color)> blendFunction) {
 	// find region...
-	int outputWidth{ std::min(imageA.getWidth(), imageB.getWidth()) };
-	int outputHeight{ std::min(imageA.getHeight(), imageB.getHeight()) };
-	Image outputImage(outputWidth, outputHeight);
+	Image outputImage = findImagesIntersection(imageA, imageB);
 
 	// divide image...
 	std::vector<std::thread> threads;
-	//ImageBlender* temp = new ImageBlender();
 	int chunkSize = outputImage.getHeight() / noThreads;
 	for (int i = 0; i < noThreads; i++) {
 
-		/*std::thread th(&ImageBlender::blendRegion, this, outputImage, imageA, imageB, blendFunction,
-			0, outputImage.getWidth(), i * chunkSize, (i+1) * chunkSize - 1);*/
-		std::thread th([&, this]() {this->blendRegion(outputImage, imageA, imageB, blendFunction,
-			0, outputImage.getWidth(), i * chunkSize, (i + 1) * chunkSize - 1); });
+		std::thread th(&ImageBlender::blendRegion, this, std::ref(outputImage), std::ref(imageA), std::ref(imageB), blendFunction,
+			0, outputImage.getWidth() - 1, i * chunkSize, (i + 1) * chunkSize - 1);
 	
 		threads.push_back(std::move(th));
 	}
 	// reminder:
-	//if (outputImage.getHeight() % noThreads != 0) {
-	//	chunkSize = outputImage.getHeight() % noThreads;
-	//	std::thread th(&ImageBlender::blendRegion, outputImage, imageA, imageB, blendFunction,
-	//		0, outputImage.getWidth(), outputImage.getHeight() - chunkSize, outputImage.getHeight() - 1);
+	if (outputImage.getHeight() % noThreads != 0) {
+		chunkSize = outputImage.getHeight() % noThreads;
+		std::thread th(&ImageBlender::blendRegion, this, std::ref(outputImage), std::ref(imageA), std::ref(imageB), blendFunction,
+			0, outputImage.getWidth() - 1, outputImage.getHeight() - chunkSize, outputImage.getHeight() - 1);
 
-	//	//threads.push_back(std::move(th));
-	//}
+		threads.push_back(std::move(th));
+	}
 
 	for (int i = 0; i < threads.size(); i++) {
 		threads[i].join();
 	}
-	//delete temp;
+	
 	return outputImage;
 }
 
@@ -45,3 +40,14 @@ void ImageBlender::blendRegion(Image& outputImage, const Image& imageA, const Im
 		}
 	}
 }
+
+Image ImageBlender::findImagesIntersection(const Image& imageA, const Image& imageB) {
+
+	int outputWidth{ std::min(imageA.getWidth(), imageB.getWidth()) };
+	int outputHeight{ std::min(imageA.getHeight(), imageB.getHeight()) };
+	Image outputImage(outputWidth, outputHeight);
+
+	return outputImage;
+}
+
+
