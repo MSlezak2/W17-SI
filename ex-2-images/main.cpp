@@ -2,6 +2,7 @@
 #include "ImageDataProviderInterface.h"
 #include "ImageDataProviderFactory.h"
 #include "ImageBlender.h"
+#include "BlendingFunctionsCollection.h"
 
 int main() {
 
@@ -28,16 +29,8 @@ int main() {
 	}
 
 	ImageBlender imageBlender;
-
-	std::function<Image::color(Image::color, Image::color)> blendFunction = [](Image::color a, Image::color b) {
-		Image::color c;
-		c.a = a.a * b.a;
-		c.r = a.r * b.r;
-		c.g = a.g * b.g;
-		c.b = a.b * b.b;
-		return c;
-	};
-
+	BlendingFunctionsCollection blendingFunctionsCollection;
+	std::function<Image::color(Image::color, Image::color)> blendFunction = blendingFunctionsCollection.findFunction("overlay");
 	Image img3 = imageBlender.blendImages(img1, img2, 2, blendFunction);
 
 	//imageDataProvider.get()->saveImage("the_test2.ppm",img);
@@ -48,5 +41,5 @@ int main() {
 	//Image img2 = imageDataProvider.get()->loadImage("test_png_file_1.png");
 	//imageDataProvider.get()->saveImage("test_png_file_2.png", img1);
 
-	return 0;
+		return 0;
 }

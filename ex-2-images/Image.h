@@ -8,7 +8,11 @@ public:
 	Image(int _width, int _height);
 	struct color {
 		float r, g, b, a;
-		color() : r{ 0 }, g{ 0 }, b{ 0 }, a{ 0 } {};
+		color() : color(0,0,0,0) {};
+		color(float r, float g, float b, float a) : r{ r }, g{ g }, b{ b }, a{ a } {};
+		//color operator+(const color& rhs);
+		//color operator-(const color& rhs);
+		//color operator*(const color& rhs);
 	};
 	color& operator()(size_t x, size_t y);
 	color operator()(size_t x, size_t y) const;

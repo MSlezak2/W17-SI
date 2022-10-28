@@ -11,6 +11,6 @@ private:
 	void blendRegion(Image& outputImage, const Image& imageA, const Image& imageB,
 		std::function<Image::color(const Image::color, const Image::color)> blendFunction,
 		int minX, int maxX, int minY, int maxY);
-	Image findImagesIntersection(const Image& imageA, const Image& imageB);
+	Image imagesIntersection(const Image& imageA, const Image& imageB);
 };
 
