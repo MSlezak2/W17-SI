@@ -24,7 +24,7 @@ void CommandManager::parseExpression(std::string& expression, std::string& comma
 		throw std::invalid_argument("There is no such command");
 	}
 	// parse arguments
-	while (ss >> tempArgument) {
+	while (ss >> tempArgumen7t) {
 		arguments.push_back(tempArgument);
 	}
 }

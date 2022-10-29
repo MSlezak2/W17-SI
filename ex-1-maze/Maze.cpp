@@ -1,9 +1,16 @@
 #include "Maze.h"
 #include <algorithm>
+#include <vector>
+
+Maze::Maze() {
+	for (int i = 0; i < maze.size(); i++) {
+		maze[i].fill('X');
+	}
+}
 
 void Maze::putAt(char symbol, int x, int y) {
-	if (0 < y && y < sizeof maze / sizeof maze[0]) {
-		if (0 < x && x < sizeof maze / sizeof maze[0]) {
+	if (0 < y && y < maze.size()) {
+		if (0 < x && x < maze[0].size()) {
 			maze[y][x] = symbol;
 		}
 	} 
@@ -13,8 +20,8 @@ char Maze::readAt(int x, int y) {
 	// returns '?' if indexes are out of range
 	char symbol{ '?' };
 
-	if (0 < y && y < sizeof maze / sizeof maze[0]) {
-		if (0 < x && x < sizeof maze / sizeof maze[0]) {
+	if (0 <= y && y < maze.size()) {
+		if (0 <= x && x < maze[0].size()) {
 			symbol = maze[y][x];
 		}
 	}
@@ -23,9 +30,9 @@ char Maze::readAt(int x, int y) {
 }
 
 void Maze::serialize(FileIOInterface* io) {
-	std::string line(' ',sizeof maze / sizeof maze[0]);
-	for (int y = 0; y < sizeof maze ; y++) {
-		for (int x = 0; x < sizeof maze / sizeof maze[0]; x++) {
+	std::string line(' ',maze.size());
+	for (int y = 0; y < maze.size(); y++) {
+		for (int x = 0; x < maze[0].size(); x++) {
 			line[x] = maze[y][x];
 
 		}
@@ -35,8 +42,10 @@ void Maze::serialize(FileIOInterface* io) {
 
 void Maze::deserialize(FileIOInterface* io) {
 	std::string line;
-	for (int y = 0; y < sizeof maze; y++) {
+	for (int y = 0; y < maze.size(); y++) {
 		line = io->read();
-		std::copy(line.begin(), line.end(), maze[y]);
+		for (int x = 0; x < line.size(); x++) {
+			maze[y][x] = line[x];
+		}
 	}
 }
