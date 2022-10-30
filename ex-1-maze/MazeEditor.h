@@ -5,14 +5,14 @@
 
 class MazeEditor {
 public:
-	MazeEditor() : fileIO{ nullptr } {};
-	MazeEditor(FileIOInterface* _fileIO) : fileIO{ _fileIO } {};
+	MazeEditor();
 	void start();
 
 private:
 	CommandManager commandManager;
-	FileIOInterface* fileIO;
 	Maze maze;
 	UserInterface ui;
+
+	void populateCommands();
 };
 

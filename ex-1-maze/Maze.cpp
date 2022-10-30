@@ -30,11 +30,12 @@ char Maze::readAt(int x, int y) {
 }
 
 void Maze::serialize(FileIOInterface* io) {
-	std::string line(' ',maze.size());
+	//TODO: This command should overwrite the file, but the instruction doesn't let it. That's 
+	//why if user wants to save maze to the same file it doesn't work properly
+	std::string line(maze[0].size(), ' ');
 	for (int y = 0; y < maze.size(); y++) {
 		for (int x = 0; x < maze[0].size(); x++) {
 			line[x] = maze[y][x];
-
 		}
 		io->write(line);
 	}

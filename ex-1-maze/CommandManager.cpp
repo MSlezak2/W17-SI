@@ -2,8 +2,6 @@
 #include <sstream>
 
 CommandManager::CommandManager() {
-	
-
 }
 
 void CommandManager::invoke(std::string expression) {
@@ -24,7 +22,7 @@ void CommandManager::parseExpression(std::string& expression, std::string& comma
 		throw std::invalid_argument("There is no such command");
 	}
 	// parse arguments
-	while (ss >> tempArgumen7t) {
+	while (ss >> tempArgument) {
 		arguments.push_back(tempArgument);
 	}
 }

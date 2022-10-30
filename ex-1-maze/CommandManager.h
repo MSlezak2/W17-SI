@@ -4,6 +4,9 @@
 #include <string>
 #include <vector>
 
+//TODO: I think command design pattern should be implemented using Command classes, that
+// let treat command like an object and invoke, undo or log it... (but the instruction implies
+// rather the following way of implementing it)
 class CommandManager {
 public:
 	CommandManager();

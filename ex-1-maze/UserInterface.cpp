@@ -15,6 +15,6 @@ void UserInterface::displayMaze(Maze maze) {
 std::string UserInterface::askForCommand() {
 	std::cout << "Enter command:\n";
 	std::string command;
-	std::cin >> command;
+	std::getline(std::cin, command);
 	return command;
 }
