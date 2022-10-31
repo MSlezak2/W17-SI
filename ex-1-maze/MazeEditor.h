@@ -12,6 +12,7 @@ private:
 	CommandManager commandManager;
 	Maze maze;
 	UserInterface ui;
+	bool isOver;
 
 	void populateCommands();
 };

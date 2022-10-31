@@ -45,8 +45,12 @@ void Maze::deserialize(FileIOInterface* io) {
 	std::string line;
 	for (int y = 0; y < maze.size(); y++) {
 		line = io->read();
-		for (int x = 0; x < line.size(); x++) {
-			maze[y][x] = line[x];
+		if (line.size() == WIDTH) {
+			for (int x = 0; x < line.size(); x++) {
+				maze[y][x] = line[x];
+			}
+		} else {
+			throw std::exception("That file is corrupted");
 		}
 	}
 }
