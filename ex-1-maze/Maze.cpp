@@ -3,14 +3,15 @@
 #include <vector>
 
 Maze::Maze() {
+	// fill whole maze with wall tiles
 	for (int i = 0; i < maze.size(); i++) {
 		maze[i].fill('X');
 	}
 }
 
 void Maze::putAt(char symbol, int x, int y) {
-	if (0 < y && y < maze.size()) {
-		if (0 < x && x < maze[0].size()) {
+	if (0 <= y && y < maze.size()) {
+		if (0 <= x && x < maze[0].size()) {
 			maze[y][x] = symbol;
 		}
 	} 
@@ -30,8 +31,8 @@ char Maze::readAt(int x, int y) {
 }
 
 void Maze::serialize(FileIOInterface* io) {
-	//TODO: This command should overwrite the file, but the instruction doesn't let it. That's 
-	//why if user wants to save maze to the same file it doesn't work properly
+	//TODO: This command probably should overwrite the file, but the instruction hinders it. 
+	// That's why if user wants to save maze to the same file it doesn't work properly
 	std::string line(maze[0].size(), ' ');
 	for (int y = 0; y < maze.size(); y++) {
 		for (int x = 0; x < maze[0].size(); x++) {

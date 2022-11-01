@@ -25,12 +25,14 @@ void MazeEditor::start() {
 }
 
 void MazeEditor::populateCommands() {
+	// command used for editing the maze
 	std::function<bool(std::vector<std::string>)> placeCommand = [this](std::vector<std::string> arguments) {
 		bool succeeded{ true };
-		//TODO: Handle invalid usage
+		// is there the right number of arguments
 		if (arguments.size() != 3) {
 			throw std::exception("Invalid number of arguments for this command");
 		}
+		// what type of tile to place
 		std::string type = arguments[0];
 		transform(type.begin(), type.end(), type.begin(), ::toupper);
 		char c;
@@ -45,44 +47,53 @@ void MazeEditor::populateCommands() {
 		} else {
 			throw std::invalid_argument("There is no such type of the tile");
 		}
+		// where to place it
 		int x = stoi(arguments[1]);
 		int y = stoi(arguments[2]);
 		if (x < 0 || x >= maze.getWidth() || y < 0 || y >= maze.getHeight()) {
 			throw std::out_of_range("You've reached out of the scope");
 		}
+		// place the tile
 		this->maze.putAt(c, x, y);
 		return succeeded;
 	};
 	commandManager.addCommand("place", placeCommand);
 
+	// command used for loading the maze from the file
 	std::function<bool(std::vector<std::string>)> loadCommand = [this](std::vector<std::string> arguments) {
 		bool succeeded{ true };
-		//TODO: Handle invalid usage
+		// is there the right number of arguments
 		if (arguments.size() != 1) {
 			throw std::exception("Wrong number of arguments for this command");
 		}
+		// where to load the file from
 		std::string filePath = arguments[0];
 		FileIOInterface* fileIOInterface = new FStreamAdaptor(filePath);
+		// load the file
 		this->maze.deserialize(fileIOInterface);
 		delete fileIOInterface;
 		return succeeded;
 	};
 	commandManager.addCommand("load", loadCommand);
 
+	// command used for saving the maze to the file
 	std::function<bool(std::vector<std::string>)> saveCommand = [this](std::vector<std::string> arguments) {
 		bool succeeded{ true };
-		//TODO: Handle invalid usage
+		// is there the right number of arguments
 		if (arguments.size() != 1) {
 			throw std::exception("Wrong number of arguments for this command");
 		}
+		// where to save the maze
 		std::string filePath = arguments[0];
 		FileIOInterface* fileIOInterface = new FStreamAdaptor(filePath);
+		// save the maze
 		this->maze.serialize(fileIOInterface);
 		delete fileIOInterface;
 		return succeeded;
 	};
 	commandManager.addCommand("save", saveCommand);
 
+	// command to exit the program
 	std::function<bool(std::vector<std::string>)> exitCommand = [this](std::vector<std::string> arguments) {
 		bool succeeded{ true };
 		this->isOver = true;

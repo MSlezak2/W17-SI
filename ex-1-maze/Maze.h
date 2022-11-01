@@ -14,11 +14,10 @@ public:
 	int getWidth() { return WIDTH; };
 
 private:
-	//TODO: How not to hardcode those values? const / macro / dynamic array / vactor?
+	//TODO: Are static const a good idea?
 	static const int HEIGHT = 5;
 	static const int WIDTH = 5;
 	std::array<std::array<char, HEIGHT>, WIDTH> maze;
-	//char maze[10][5];
 
 };
 

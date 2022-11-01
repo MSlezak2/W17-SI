@@ -5,15 +5,14 @@
 #include <vector>
 
 //TODO: I think command design pattern should be implemented using Command classes, that
-// let treat command like an object and invoke, undo or log it... (but the instruction implies
+// let treat commands like objects and invoke, undo or log them... (but the instruction implies
 // rather the following way of implementing it)
 class CommandManager {
 public:
 	CommandManager();
 	void invoke(std::string expression);
 	void addCommand(std::string commandName, 
-		std::function<bool(std::vector<std::string> action)>);
-
+		std::function<bool(std::vector<std::string>)>  action);
 
 private:
 	std::map<std::string,
