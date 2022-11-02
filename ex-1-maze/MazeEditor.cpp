@@ -27,6 +27,7 @@ void MazeEditor::start() {
 void MazeEditor::populateCommands() {
 	// command used for editing the maze
 	std::function<bool(std::vector<std::string>)> placeCommand = [this](std::vector<std::string> arguments) {
+		//TODO: What if MazeEditor object no longer exists when this command is being executed? (Unlikely scenario but shouldn't I prevent it somehow?)
 		bool succeeded{ true };
 		// is there the right number of arguments
 		if (arguments.size() != 3) {
