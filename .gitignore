@@ -1,3 +1,5 @@
+*.ppm
+*.png
 *.exe
 *.sln
 *.vcxproj.

@@ -7,11 +7,11 @@
 
 int main(int argc, char* argv[]) {
 
-	CommandLineInterface cli(argc, argv);
-	cli.start();
+	CommandLineInterface cli;
+	cli.start(argc, argv);
 
 	//ImageDataProviderFactory idpFactory;
-	//std::unique_ptr<ImageDataProviderInterface> imageDataProvider = idpFactory.createDataProvider(".png");
+	//std::unique_ptr<ImageDataProviderInterface> imageDataProvider = idpFactory.createDataProvider("ppm");
 
 	//Image img1(10, 10);
 	//for (int i = 0; i < 10; i++) {
@@ -37,13 +37,9 @@ int main(int argc, char* argv[]) {
 	//std::function<Image::color(Image::color, Image::color)> blendFunction = blendingFunctionsCollection.findFunction("overlay");
 	//Image img3 = imageBlender.blendImages(img1, img2, 2, blendFunction);
 
-	//imageDataProvider.get()->saveImage("the_test2.ppm",img);
+	//imageDataProvider.get()->saveImage("input1.ppm", img1);
+	//imageDataProvider.get()->saveImage("input2.ppm", img2);
+	//imageDataProvider.get()->saveImage("targetOutput.ppm",img3);
 
-	//Image img2 = imageDataProvider.get()->loadImage("the_test2.ppm");
-	//imageDataProvider.get()->saveImage("the_test3.ppm", img2);
-
-	//Image img2 = imageDataProvider.get()->loadImage("test_png_file_1.png");
-	//imageDataProvider.get()->saveImage("test_png_file_2.png", img1);
-
-		return 0;
+	return 0;
 }

@@ -9,5 +9,5 @@ float ImageDataProviderInterface::mapTo0To1Range(int value, int maxColorValue) c
     if (value < 0 || maxColorValue < value) {
         throw IncorrectColorValueException(maxColorValue);
     }
-    return value / maxColorValue;
+    return (double) value / maxColorValue;
 }

@@ -6,12 +6,12 @@ ImageDataProviderFactory::ImageDataProviderFactory() {
 	std::function<std::unique_ptr<ImageDataProviderInterface>()> ppmCreator = []() {
 		return std::unique_ptr<ImageDataProviderInterface>{new PPMImageDataProvider()};
 	};
-	addNewFileExtension(".ppm", ppmCreator);
+	addNewFileExtension("ppm", ppmCreator);
 
 	std::function<std::unique_ptr<ImageDataProviderInterface>()> pngCreator = []() {
 		return std::unique_ptr<ImageDataProviderInterface>{new PNGImageDataProvider()};
 	};
-	addNewFileExtension(".png", pngCreator);
+	addNewFileExtension("png", pngCreator);
 }
 
 std::unique_ptr<ImageDataProviderInterface> ImageDataProviderFactory::createDataProvider(const std::string& ext) {
