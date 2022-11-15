@@ -14,7 +14,7 @@ Image ImageBlender::blendImages(const Image& imageA, const Image& imageB, int no
 	
 		threads.push_back(std::move(th));
 	}
-	// reminder:
+	// reminder area:
 	chunkSize = outputImage.getHeight() % noThreads;
 	if (outputImage.getHeight() % noThreads != 0) {
 		std::thread th(&ImageBlender::blendRegion, this, std::ref(outputImage), std::ref(imageA), std::ref(imageB), blendFunction,
