@@ -15,7 +15,16 @@ ImageDataProviderFactory::ImageDataProviderFactory() {
 }
 
 std::unique_ptr<ImageDataProviderInterface> ImageDataProviderFactory::createDataProvider(const std::string& ext) {
-	return creators.find(ext)->second();
+	std::unique_ptr<ImageDataProviderInterface> provider;
+	std::map<std::string, std::function<std::unique_ptr<ImageDataProviderInterface>()>>::iterator providerItr = creators.find(ext);
+	
+	if (providerItr != creators.end()) {
+		provider = providerItr->second();
+	} else {
+		provider = nullptr;
+	}
+
+	return provider;
 }
 
 bool ImageDataProviderFactory::addNewFileExtension(std::string ext, std::function<std::unique_ptr<ImageDataProviderInterface>()> creator) {
